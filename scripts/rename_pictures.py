@@ -1,7 +1,15 @@
 #!/usr/bin/python
 #
-# script that will prefix all pictures in a given directory and
-# add numbers to it
+# author: Jose Lopez
+#
+# script that will go through a folder and all its sub folders and rename all
+# files under each folder.  it renames the file with the files parent folder.
+#
+# this is used for image/video folders that have DCIM and such.  It will also
+# add a counter to each of the files it renames
+#
+# usage: ./rename_pictures FOLDER_TO_LOOK_THROUGH
+#
 
 import sys
 import os
@@ -11,6 +19,15 @@ import uuid
 class RenamePictures(object):
     @classmethod
     def rename_files(cls, directory, prefix):
+        """ rename all files under a directory with a prefix
+
+        :param directory: the directory we will rename all the files under
+        :type directory: str.
+        :param prefix: rename all the files with this prefix plus a counter
+        :type prefix: str.
+
+
+        """
         directory = '{}{}'.format(directory, os.path.sep)
         counter = 1
 
@@ -41,7 +58,7 @@ class RenamePictures(object):
 
                 # keep incrementing counter until we find a new file slot
                 while os.path.isfile(complete_new_file):
-                    print complete_new_file + ' = proposed file exists'
+                    cls.log(complete_new_file + ' = proposed file exists')
 
                     # increase counter and generate new proposed file
                     counter += 1
